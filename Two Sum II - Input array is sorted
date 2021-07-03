@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        auto left = numbers.begin(), right = numbers.end()-1;
+        while(left<right){
+            if(*left+*right==target){
+                int l = left-numbers.begin()+1;
+                int r = right-numbers.begin()+1;
+                return {l,r};
+            }else if(*left+*right<target){
+                ++left;
+            }else{
+                --right;
+            }
+        }
+        return {};
+    }
+};
+        
