@@ -1,0 +1,18 @@
+class Solution {
+public:
+    
+    int binarySearch(int st, int ed, int k){
+        if(st<=ed){
+            long mid = st + (ed-st)/2;
+            if(mid*mid == k || ((mid*mid < k) && (mid+1)*(mid+1) > k))
+                return mid;
+            mid*mid < k? st = mid+1 : ed = mid-1;
+            return binarySearch(st, ed, k);
+        }
+        return -1;
+    }
+    
+    int mySqrt(int x) {
+        return binarySearch(0, x, x);
+    }
+};
