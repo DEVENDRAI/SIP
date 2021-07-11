@@ -1,0 +1,52 @@
+class Solution {
+public: 
+    vector<int> searchRange(const vector<int>& nums, int target) {
+        if (nums.empty()) {
+            return {-1, -1};
+        }
+        
+        int start = 0;
+        int end = nums.size()-1;
+        int mid = (start + end) / 2;
+        
+		// binary search for target
+        while (nums[mid] != target) {
+            if (start >= end) {  // target not found
+                return {-1, -1};
+            }
+            if (nums[mid] > target) {
+                end = mid-1; // all elements after nums[mid] are also > target
+            } else { // nums[mid] < target
+                start = mid+1; // all elements before nums[mid] are also < target
+            }
+            mid = (start + end) / 2; // new midpoint
+        }
+        
+        int l_curr = mid;
+        int r_curr = mid;
+        int step = 1;
+        
+		// exponential stepping: LHS
+        while (l_curr > 0 && nums[l_curr] == target && nums[l_curr-1] == target) {
+            if (l_curr-step < 0 || nums[l_curr-step] != target) {
+                step = 1; // next step would be understepped; reset step size
+            }
+            l_curr -= step;
+            step *= 2;
+        }
+        
+        step = 1;
+		// exponential stepping: RHS
+        while (r_curr < nums.size()-1 && nums[r_curr] == target && nums[r_curr+1] == target) {
+            if (r_curr+step >= nums.size() || nums[r_curr+step] != target) {
+                step = 1;  // next step would be overstepped; reset step size
+            }
+            r_curr += step;
+            step *= 2;
+        }
+		
+		// results
+        return {l_curr, r_curr};
+    }
+};
+    
