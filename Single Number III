@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        
+        int all=0; //all finally will be eaual to the XOR of thwo distinct elements
+        int n1=0;
+        int n2=0;
+        
+        for(auto i:nums){
+            all=all^i;
+        }
+        int r=1; //will point to the rightmost set bit 
+        //or in other words, it will point to first 1 from the right
+        
+       while((all & r) == 0 ){
+           r=r<<1;
+       }
+        
+        //separate the array nums based on "r"
+        
+        for(auto i: nums){
+            
+            if(i & r){
+                n1=n1^i;
+            }else{
+                n2=n2^i;
+            }
+            
+        }
+        
+        return {n1,n2};
+        
+    }
+};
+
+        
