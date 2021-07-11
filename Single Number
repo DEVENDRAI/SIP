@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        const int PLUS = 30001;
+        char m[PLUS + PLUS + 1] = { 0 };
+        for (int i = 0; i < nums.size(); ++i)
+            m[nums[i] + PLUS]++;
+        for (int i = 0; i < nums.size(); ++i)
+            if (m[nums[i] + PLUS] == 1)
+                return nums[i];
+        return 0;
+    }
+};
