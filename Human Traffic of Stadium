@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+select id , visit_date , people from
+(select * ,
+lead(people) over(order by id) sec,
+lead(people,2) over(order by id) third,
+lag(people,2) over(order by id) up_third ,
+lag(people) over(order by id) up_sec from Stadium ) a
+where
+(people>=100 and sec >=100 and third >=100 ) or
+(people>=100 and up_third >=100 and up_sec >=100) or
+(people>=100 and sec >=100 and up_sec >=100)
+order by 2
