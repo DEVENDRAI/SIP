@@ -1,0 +1,7 @@
+# Write your MySQL query statement below
+SELECT Distinct L.Num as ConsecutiveNums
+FROM Logs as L
+INNER JOIN Logs as M ON L.num = M.num
+INNER JOIN Logs as N ON L.num = N.num
+WHERE L.Id < M.Id AND M.Id < N.Id AND M.Id -L.Id = 1 AND N.Id-M.Id = 1
+ORDER BY L.Id , N.Id ,M.Id
